@@ -1,6 +1,0 @@
-name: SSISAuth
-version: 1.0
-author: keii
-main: com.keii.ssisauth.SSISAuth
-api-version: 1.14
-depend: []

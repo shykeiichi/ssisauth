@@ -8,6 +8,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -32,10 +35,17 @@ public class PlayerJoin implements Listener {
             e.getPlayer().kickPlayer("Registrera konto på https://mc.ssis.nu");
         } else if(response.statusCode() == 200) {
             String[] result = responseText.split(",");
-            
+
             Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),"nick " + e.getPlayer().getName() + " " + result[3] + result[4].charAt(0));
             Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + e.getPlayer().getName() + " meta setprefix " + result[2]);
-            e.getPlayer().setPlayerListName(ChatColor.YELLOW + result[2] + " " + ChatColor.WHITE + result[3] + result[4].charAt(0));
+            //e.getPlayer().setPlayerListName(ChatColor.YELLOW + result[2] + " " + ChatColor.WHITE + result[3] + result[4].charAt(0));
+            e.getPlayer().setPlayerListName(ChatColor.WHITE + result[3] + result[4].charAt(0));
+
+            e.getPlayer().getPlayerProfile().setName(ChatColor.WHITE + result[3] + result[4].charAt(0));
+            for(Player all : Bukkit.getOnlinePlayers()) {
+                all.hidePlayer(e.getPlayer());
+                all.showPlayer(e.getPlayer());
+            }
         }
     }
 }

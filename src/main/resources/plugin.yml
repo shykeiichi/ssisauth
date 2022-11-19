@@ -1,0 +1,4 @@
+name: SSISAuth
+version: '${project.version}'
+main: com.keii.ssisauth.SSISAuth
+api-version: 1.19
