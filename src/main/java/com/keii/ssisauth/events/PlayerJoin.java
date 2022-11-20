@@ -6,11 +6,13 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -40,7 +42,7 @@ public class PlayerJoin implements Listener {
 
             responseText = response.body();
         } catch(Exception error) {
-            e.getPlayer().kick(Component.text().content("Ser ut som att APIet har lite problem. Kontakta 22widi@stockholmscience.se").build());
+            e.getPlayer().kick(Component.text().content("Oj! Ser ut som att APIet har lite problem. Kontakta 22widi@stockholmscience.se").build());
             return;
         }
 
@@ -51,14 +53,16 @@ public class PlayerJoin implements Listener {
         } else if(response.statusCode() == 200) {
             String[] result = responseText.split(",");
 
-            Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),"nick " + e.getPlayer().getName() + " " + result[3] + result[4].charAt(0));
+            //Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),"nick " + e.getPlayer().getName() + " " + result[3] + result[4].charAt(0));
             Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + e.getPlayer().getName() + " meta setprefix " + result[2]);
             //e.getPlayer().setPlayerListName(ChatColor.YELLOW + result[2] + " " + ChatColor.WHITE + result[3] + result[4].charAt(0));
-            e.getPlayer().playerListName(Component.text().content(ChatColor.WHITE + result[3] + result[4].charAt(0)).build());
+            //e.getPlayer().playerListName(Component.text().content(ChatColor.WHITE + result[3] + result[4].charAt(0)).build());
+
+            e.joinMessage(Component.text().content("§e" + result[3] + result[4].charAt(0) + " joined the game").build());
 
             PlayerProfile oldProfile = e.getPlayer().getPlayerProfile();
             Set<ProfileProperty> old = oldProfile.getProperties();
-            var profile = Bukkit.createProfileExact(e.getPlayer().getUniqueId(), "CustomName");
+            var profile = Bukkit.createProfileExact(e.getPlayer().getUniqueId(), result[3] + result[4].charAt(0));
             profile.setProperties(old); // The players previous properties
             e.getPlayer().setPlayerProfile(profile);
         }

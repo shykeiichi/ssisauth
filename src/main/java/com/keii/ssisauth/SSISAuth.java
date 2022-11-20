@@ -1,6 +1,6 @@
 package com.keii.ssisauth;
 
-import com.keii.ssisauth.commands.CommandMaintenance;
+import com.keii.ssisauth.commands.CommandWho;
 import com.keii.ssisauth.events.PlayerJoin;
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,8 +11,7 @@ public class SSISAuth extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
-        this.getCommand("maintenance").setExecutor(new CommandMaintenance());
+        this.getCommand("who").setExecutor(new CommandWho());
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "SSISAuth Enabled");
     }
