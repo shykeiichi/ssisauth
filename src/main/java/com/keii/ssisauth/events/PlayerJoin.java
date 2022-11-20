@@ -1,5 +1,9 @@
 package com.keii.ssisauth.events;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -15,37 +19,48 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Set;
 
 import static com.keii.ssisauth.SSISAuth.apiip;
 
 public class PlayerJoin implements Listener {
     @EventHandler
     public static void onPlayerJoin(PlayerJoinEvent e) throws IOException, InterruptedException {
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(apiip + "/api/v1/checkuserjava?uuid=" + e.getPlayer().getUniqueId().toString()))
-                .build();
+        HttpRequest request;
+        HttpResponse<String> response;
+        String responseText;
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            request = HttpRequest.newBuilder()
+                    .uri(URI.create(apiip + "/api/v1/checkuserjava?uuid=" + e.getPlayer().getUniqueId().toString()))
+                    .build();
 
-        HttpResponse<String> response = client.send(request,
-                HttpResponse.BodyHandlers.ofString());
+            response = client.send(request,
+                    HttpResponse.BodyHandlers.ofString());
 
-        String responseText = response.body();
+            responseText = response.body();
+        } catch(Exception error) {
+            e.getPlayer().kick(Component.text().content("Ser ut som att APIet har lite problem. Kontakta 22widi@stockholmscience.se").build());
+            return;
+        }
+
+        Bukkit.getServer().broadcast(Component.text().content(String.valueOf(response.statusCode())).build());
 
         if(response.statusCode() == 401) {
-            e.getPlayer().kickPlayer("Registrera konto på https://mc.ssis.nu");
+            e.getPlayer().kick(Component.text().content("Registrera konto på https://mc.ssis.nu").build());
         } else if(response.statusCode() == 200) {
             String[] result = responseText.split(",");
 
             Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),"nick " + e.getPlayer().getName() + " " + result[3] + result[4].charAt(0));
             Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + e.getPlayer().getName() + " meta setprefix " + result[2]);
             //e.getPlayer().setPlayerListName(ChatColor.YELLOW + result[2] + " " + ChatColor.WHITE + result[3] + result[4].charAt(0));
-            e.getPlayer().setPlayerListName(ChatColor.WHITE + result[3] + result[4].charAt(0));
+            e.getPlayer().playerListName(Component.text().content(ChatColor.WHITE + result[3] + result[4].charAt(0)).build());
 
-            e.getPlayer().getPlayerProfile().setName(ChatColor.WHITE + result[3] + result[4].charAt(0));
-            for(Player all : Bukkit.getOnlinePlayers()) {
-                all.hidePlayer(e.getPlayer());
-                all.showPlayer(e.getPlayer());
-            }
+            PlayerProfile oldProfile = e.getPlayer().getPlayerProfile();
+            Set<ProfileProperty> old = oldProfile.getProperties();
+            var profile = Bukkit.createProfileExact(e.getPlayer().getUniqueId(), "CustomName");
+            profile.setProperties(old); // The players previous properties
+            e.getPlayer().setPlayerProfile(profile);
         }
     }
 }

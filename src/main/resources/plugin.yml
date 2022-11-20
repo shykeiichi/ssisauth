@@ -2,3 +2,9 @@ name: SSISAuth
 version: '${project.version}'
 main: com.keii.ssisauth.SSISAuth
 api-version: 1.19
+
+commands:
+  maintenance:
+    description: Configure Maintenance Mode
+    usage: /maintenance
+    permission: ssisauth.maintenance
