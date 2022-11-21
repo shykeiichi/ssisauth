@@ -8,3 +8,8 @@ commands:
     description: Get real minecraft username of nick
     usage: /who <user eg. WillemD>
     permission: ssisauth.who
+  teleportplayer:
+    description: teleport
+    aliases: tpp
+    usage: /teleportplayer <player> [player]
+    permission: ssisauth.teleportplayer

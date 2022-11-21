@@ -1,5 +1,6 @@
 package com.keii.ssisauth;
 
+import com.keii.ssisauth.commands.CommandTeleportPlayer;
 import com.keii.ssisauth.commands.CommandWho;
 import com.keii.ssisauth.events.PlayerJoin;
 import org.bukkit.ChatColor;
@@ -12,6 +13,7 @@ public class SSISAuth extends JavaPlugin {
     @Override
     public void onEnable() {
         this.getCommand("who").setExecutor(new CommandWho());
+        this.getCommand("teleportplayer").setExecutor(new CommandTeleportPlayer());
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "SSISAuth Enabled");
     }
