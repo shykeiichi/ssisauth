@@ -46,19 +46,30 @@ public class PlayerJoin implements Listener {
             return;
         }
 
-        Bukkit.getServer().broadcast(Component.text().content(String.valueOf(response.statusCode())).build());
+        //Bukkit.getServer().broadcast(Component.text().content(String.valueOf(response.statusCode())).build());
 
-        if(response.statusCode() == 401) {
-            e.getPlayer().kick(Component.text().content("Registrera konto på https://mc.ssis.nu").build());
+        if(response.statusCode() == 400) {
+            e.getPlayer().kick(Component.text().content(responseText).build());
         } else if(response.statusCode() == 200) {
             String[] result = responseText.split(",");
 
             //Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(),"nick " + e.getPlayer().getName() + " " + result[3] + result[4].charAt(0));
-            Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + e.getPlayer().getName() + " meta setprefix " + result[2]);
-            //e.getPlayer().setPlayerListName(ChatColor.YELLOW + result[2] + " " + ChatColor.WHITE + result[3] + result[4].charAt(0));
+            if(Integer.parseInt(result[5]) == 1) {
+                Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + e.getPlayer().getName() + " meta setprefix &6[" + result[2] + "]");
+                Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + e.getPlayer().getName() + " group add staff");
+            } else {
+                Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + e.getPlayer().getName() + " meta setprefix &e[" + result[2] + "]");
+                Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "lp user " + e.getPlayer().getName() + " group remove staff");
+            }
+
+            if(Integer.parseInt(result[5]) != 1) {
+                e.getPlayer().playerListName(Component.text().content(ChatColor.YELLOW + result[2] + " " + ChatColor.WHITE + result[3] + result[4].charAt(0)).build());
+            } else {
+                e.getPlayer().playerListName(Component.text().content(ChatColor.GOLD + result[2] + " " + ChatColor.WHITE + result[3] + result[4].charAt(0) + " " + ChatColor.GOLD + "Staff").build());
+            }
             //e.getPlayer().playerListName(Component.text().content(ChatColor.WHITE + result[3] + result[4].charAt(0)).build());
 
-            e.joinMessage(Component.text().content("§e" + result[3] + result[4].charAt(0) + " joined the game").build());
+            e.joinMessage(Component.text().content("§e" + result[2] + " " + result[3] + result[4].charAt(0) + " joined the game").build());
 
             PlayerProfile oldProfile = e.getPlayer().getPlayerProfile();
             Set<ProfileProperty> old = oldProfile.getProperties();

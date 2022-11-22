@@ -13,3 +13,7 @@ commands:
     aliases: tpp
     usage: /teleportplayer <player> [player]
     permission: ssisauth.teleportplayer
+  reloadusers:
+    description: reloadusers
+    usage: /reloadusers
+    permission: ssisauth.reloadusers
