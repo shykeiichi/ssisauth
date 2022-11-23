@@ -24,6 +24,8 @@ import java.net.http.HttpResponse;
 import java.util.Set;
 
 import static com.keii.ssisauth.SSISAuth.apiip;
+import static com.keii.ssisauth.global.playerClass;
+import static com.keii.ssisauth.global.playerPermission;
 
 public class PlayerJoin implements Listener {
     @EventHandler
@@ -70,6 +72,14 @@ public class PlayerJoin implements Listener {
             //e.getPlayer().playerListName(Component.text().content(ChatColor.WHITE + result[3] + result[4].charAt(0)).build());
 
             e.joinMessage(Component.text().content("§e" + result[2] + " " + result[3] + result[4].charAt(0) + " joined the game").build());
+
+            if(playerClass.containsKey(result[3] + result[4].charAt(0)))
+                playerClass.remove(result[3] + result[4].charAt(0));
+            playerClass.put(result[3] + result[4].charAt(0), result[2]);
+
+            if(playerPermission.containsKey(result[3] + result[4].charAt(0)))
+                playerPermission.remove(result[3] + result[4].charAt(0));
+            playerPermission.put(result[3] + result[4].charAt(0), Integer.parseInt(result[5]));
 
             PlayerProfile oldProfile = e.getPlayer().getPlayerProfile();
             Set<ProfileProperty> old = oldProfile.getProperties();

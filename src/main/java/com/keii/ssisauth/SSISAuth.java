@@ -1,5 +1,6 @@
 package com.keii.ssisauth;
 
+import com.keii.ssisauth.commands.CommandHelpop;
 import com.keii.ssisauth.commands.CommandReloadUsers;
 import com.keii.ssisauth.commands.CommandTeleportPlayer;
 import com.keii.ssisauth.commands.CommandWho;
@@ -16,8 +17,10 @@ public class SSISAuth extends JavaPlugin {
         this.getCommand("who").setExecutor(new CommandWho());
         this.getCommand("teleportplayer").setExecutor(new CommandTeleportPlayer());
         this.getCommand("reloadusers").setExecutor(new CommandReloadUsers());
+        this.getCommand("helpop").setExecutor(new CommandHelpop());
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
         getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "SSISAuth Enabled");
+        getServer().dispatchCommand(getServer().getConsoleSender(), "reloadusers");
     }
 
     @Override

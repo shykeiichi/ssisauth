@@ -17,3 +17,8 @@ commands:
     description: reloadusers
     usage: /reloadusers
     permission: ssisauth.reloadusers
+  helpop:
+    description: get help from staff
+    aliases: helpstaff
+    usage: /helpop <meddelande>
+    permission: ssisauth.helpop

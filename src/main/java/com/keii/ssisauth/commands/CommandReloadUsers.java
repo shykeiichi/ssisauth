@@ -14,9 +14,12 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.HashMap;
 import java.util.Set;
 
 import static com.keii.ssisauth.SSISAuth.apiip;
+import static com.keii.ssisauth.global.playerClass;
+import static com.keii.ssisauth.global.playerPermission;
 
 public class CommandReloadUsers implements CommandExecutor {
     @Override
@@ -62,6 +65,16 @@ public class CommandReloadUsers implements CommandExecutor {
                     player.playerListName(Component.text().content(ChatColor.GOLD + result[2] + " " + ChatColor.WHITE + result[3] + result[4].charAt(0) + " " + ChatColor.GOLD + "Staff").build());
                 }
                 //player.playerListName(Component.text().content(ChatColor.WHITE + result[3] + result[4].charAt(0)).build());
+                playerClass = new HashMap<>();
+                playerPermission = new HashMap<>();
+
+                if(playerClass.containsKey(result[3] + result[4].charAt(0)))
+                    playerClass.remove(result[3] + result[4].charAt(0));
+                playerClass.put(result[3] + result[4].charAt(0), result[2]);
+
+                if(playerPermission.containsKey(result[3] + result[4].charAt(0)))
+                    playerPermission.remove(result[3] + result[4].charAt(0));
+                playerPermission.put(result[3] + result[4].charAt(0), Integer.parseInt(result[5]));
 
                 PlayerProfile oldProfile = player.getPlayerProfile();
                 Set<ProfileProperty> old = oldProfile.getProperties();
