@@ -1,0 +1,30 @@
+body {
+    display: grid;
+    place-items: center;
+    height: 20vh;
+    font-family: monospace;
+}
+
+#error {
+    color: red;
+}
+
+h2 {
+    color: gray;
+    font-size: 8;
+}
+
+#spacer {
+    width: 10px;
+    height: 20vh;
+}
+
+#subheader {
+    color:gray;
+    font-size: 8;
+}
+
+#main {
+    text-align: center;
+}
+

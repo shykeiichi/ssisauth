@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+
+	<title>Togethernet MC</title>
+
+	<link rel='icon' type='image/png' href='./images/favicon.png'>
+     <link rel="stylesheet" type="text/css" href="/static/global.css"> 
+</head>
+<body><script src="https://accounts.google.com/gsi/client" async defer></script>
+<h1>
+     Logga in med skolans google konto
+</h1>
+<div id="subheader">
+     Det här är registrerings sidan för skolans minecraft server som du kan logga in på med ipn <i>ssis.nu</i>
+</div>
+<div id="spacer"></div>
+<div id="g_id_onload"
+     data-client_id="496641110476-irlpvhj9aprq30dq8ff59dpddlfctu3q.apps.googleusercontent.com"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-login_uri="https://mc.ssis.nu/api/v1/googlelogin"
+     data-auto_prompt="false">
+</div>
+
+<div class="g_id_signin"
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="outline"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left">
+</div> 
+<script>
+     async function checkLogin() {
+          const response = await fetch(`https://mc.ssis.nu/api/v1/validatesession`, {
+               method: "POST",
+               headers: {
+               "Content-Type": 'application/json',
+               },
+               body: JSON.stringify({
+               "sessionid": localStorage.getItem("sessionid")
+               })
+          });
+          
+          let json = await response.json();
+          if(json["permission"] == 1) {
+               window.location.href = "/admin"
+          }
+     }
+     checkLogin()
+</script>
+</body>
+</html>

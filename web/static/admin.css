@@ -1,0 +1,43 @@
+#banuser {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#staff {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+#banneduserblock {
+    width: 200px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#unbanbutton {
+    margin-top: 10px;
+}
+
+#ban {
+    display: flex;
+    flex-direction: column;
+}
+
+#main {
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+    text-align: left;
+}
