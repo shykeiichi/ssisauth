@@ -1,74 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width,initial-scale=1'>
-
-	<title>Togethernet MC</title>
-
-	<link rel='icon' type='image/png' href='./images/favicon.png'>
-     <link rel="stylesheet" type="text/css" href="/static/global.css"> 
-     <link rel="stylesheet" type="text/css" href="/static/admin.css"> 
-</head>
-<body>
-    <div id="main">
-        <div id="ban">
-            <div id="banuser">
-                <h1>Ban user</h1>
-                <span>
-                    <input id="banuserinput"/>
-                    <label for="banuserinput">Username</label>
-                </span>
-                <span>
-                    <input id="classinput" placeholder="optional"/>
-                    <label for="classinput">Class</label>
-                </span>
-                <span>
-                    <input id="messageinput"/>
-                    <label for="messageinput">Message</label>
-                </span>
-                <button id="banuserbutton">Ban user</button>
-            </div>
-            <div>
-                <h1>Banned users</h1>
-                <div id="bannedusers" class="list">
-
-                </div>
-            </div>
+{% extends "layout.html" %}
+{% block content %}
+<div id="main">
+    <div id="ban">
+        <div id="banuser">
+            <h1>Ban user</h1>
+            <span>
+                <input id="banuserinput"/>
+                <label for="banuserinput">Username</label>
+            </span>
+            <span>
+                <input id="classinput" placeholder="optional"/>
+                <label for="classinput">Class</label>
+            </span>
+            <span>
+                <input id="messageinput"/>
+                <label for="messageinput">Message</label>
+            </span>
+            <button id="banuserbutton">Ban user</button>
         </div>
         <div>
-            <div id="staff">
-                <h1>Add Staff</h1>
-                <span>
-                    <input id="staffuserinput"/>
-                    <label for="staffuserinput">Username</label>
-                </span>
-                <span>
-                    <input id="staffclassinput" placeholder="optional"/>
-                    <label for="staffclassinput">Class</label>
-                </span>
-                <span>
-                    <input id="permissioninput" placeholder="1=staff"/>
-                    <label for="permissioninput">Permission</label>
-                </span>
-                <button id="promoteuserbutton">Promote User</button>
-            </div>
-            <div>
-                <h1>Staff</h1>
-                <div id="stafflist" class="list">
+            <h1>Banned users</h1>
+            <div id="bannedusers" class="list">
 
-                </div>
-            </div>
-        </div>
-        <div>
-            <div id="staff">
-                <h1>Helpop</h1>
-                <div id="helpop" class="list">
-
-                </div>
             </div>
         </div>
     </div>
+    <div>
+        <div id="staff">
+            <h1>Add Staff</h1>
+            <span>
+                <input id="staffuserinput"/>
+                <label for="staffuserinput">Username</label>
+            </span>
+            <span>
+                <input id="staffclassinput" placeholder="optional"/>
+                <label for="staffclassinput">Class</label>
+            </span>
+            <span>
+                <input id="permissioninput" placeholder="1=staff"/>
+                <label for="permissioninput">Permission</label>
+            </span>
+            <button id="promoteuserbutton">Promote User</button>
+        </div>
+        <div>
+            <h1>Staff</h1>
+            <div id="stafflist" class="list">
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <div id="staff">
+            <h1>Helpop</h1>
+            <div id="helpop" class="list">
+
+            </div>
+        </div>
+    </div>
+</div>
 <script>
 
 function permissionToHuman(permission) {
@@ -363,5 +352,4 @@ document.getElementById("promoteuserbutton").addEventListener("click", () => {
 
 
 </script>
-</body>
-</html>
+{% endblock %}

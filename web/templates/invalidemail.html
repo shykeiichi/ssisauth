@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width,initial-scale=1'>
-
-        <title>Togethernet MC</title>
-
-        <link rel='icon' type='image/png' href='./images/favicon.png'>
-        <link rel="stylesheet" type="text/css" href="/static/global.css"> 
-</head>
-<body>
-    <h1>Fel mail</h1>
-    Din mail {{ email }} är inte korrekt (du måste använda stockholmscience.se mailen)
-</body>
-</html>
+{% extends "layout.html" %}
+{% block content %}
+<h1>Fel mail</h1>
+Din mail {{ email }} är inte korrekt (du måste använda stockholmscience.se mailen)
+{% endblock %}

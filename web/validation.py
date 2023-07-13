@@ -93,7 +93,7 @@ def checkuserjava():
         restrictedmessage = f"Du är bannlyst!\n{restricted[1]}"
         if(restricted[3] != None):
             restrictedmessage = "\nTills: " + datetime.utcfromtimestamp(restricted[3]).strftime('%Y-%m-%d %H:%M:%S')
-        restrictedmessage += "\nKontakta keii#9278 för frågor"
+        restrictedmessage += "\nKontakta #keii för frågor"
             
         return Response(restrictedmessage, status=400)
 

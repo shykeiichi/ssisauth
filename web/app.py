@@ -24,4 +24,4 @@ app.register_blueprint(validation)
 app.register_blueprint(login)
 CORS(app)
 
-app.run(host="192.168.147.230", port="8080")
+app.run(host="localhost", port="8080", debug=True)

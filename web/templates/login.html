@@ -1,54 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width,initial-scale=1'>
+{% extends "layout.html" %}
+{% block content %}
+<div id="main">
+	<h1>Inloggad som {{ firstname }} {{ surname }}</h1>
+	<div id="subheader">Om du har ett föredraget namn som inte är namnet på din mail så kan du kontakta keii#9278 på discord</div>
+	<div id="spacer"></div>
+	<label for="minecraft-namn">Skriv ditt minecraft namn här</label>
+	<input id="minecraft-namn"/>
+	<button onclick="registerUser()">Registrera spelare</button>
+	<div id="error"></div>
+</div>
+<script>
+	localStorage.setItem("sessionid", "{{session}}")
 
-        <title>Togethernet MC</title>
+	async function registerUser() {
+		let doc = document.getElementById("minecraft-namn")
+		const response = await fetch(`https://playerdb.co/api/player/minecraft/${doc.value}`);
 
-        <link rel='icon' type='image/png' href='./images/favicon.png'>
-		<link rel="stylesheet" type="text/css" href="/static/global.css"> 
-</head>
-<body>
-	<div id="main">
-		<h1>Inloggad som {{ firstname }} {{ surname }}</h1>
-		<div id="subheader">Om du har ett föredraget namn som inte är namnet på din mail så kan du kontakta keii#9278 på discord</div>
-		<div id="spacer"></div>
-		<label for="minecraft-namn">Skriv ditt minecraft namn här</label>
-		<input id="minecraft-namn"/>
-		<button onclick="registerUser()">Registrera spelare</button>
-		<div id="error"></div>
-	</div>
-	<script>
-		localStorage.setItem("sessionid", "{{session}}")
+		if(response.status == 400) {
+			document.getElementById("error").innerHTML = "ERROR: Please check that the username provided is your minecraft <b>java</b> username.";
+			return;
+		} 
+		let json = await response.json();
 
-		async function registerUser() {
-			let doc = document.getElementById("minecraft-namn")
-			const response = await fetch(`https://playerdb.co/api/player/minecraft/${doc.value}`);
+		const response2 = await fetch(`https://mc.ssis.nu/api/v1/registeruser`, {
+			method: "POST",
+			headers: {
+				"Content-Type": 'application/json',
+			},
+			body: JSON.stringify({
+				"mcdata": json,
+				"firstname": "{{ firstname }}",
+				"surname": "{{ surname }}",
+				"email": "{{ email }}"
+			})
+		});
 
-			if(response.status == 400) {
-				document.getElementById("error").innerHTML = "ERROR: Please check that the username provided is your minecraft <b>java</b> username.";
-				return;
-			} 
-		    let json = await response.json();
-
-		    const response2 = await fetch(`https://mc.ssis.nu/api/v1/registeruser`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": 'application/json',
-                },
-                body: JSON.stringify({
-                    "mcdata": json,
-                    "firstname": "{{ firstname }}",
-					"surname": "{{ surname }}",
-					"email": "{{ email }}"
-		        })
-		    });
-
-			if(response2.status == 200) {
-				document.getElementById("main").innerHTML = "<h1>Registered User</h1>";
-			}
+		if(response2.status == 200) {
+			document.getElementById("main").innerHTML = "<h1>Registered User</h1>";
 		}
-	</script>
-</body>
-</html>
+	}
+</script>
+{% endblock %}
