@@ -27,34 +27,38 @@ public class CommandBan implements CommandExecutor {
             return true;
         }
 
-        HttpRequest request;
-        HttpResponse<String> response;
-        String responseText;
-        HttpClient client = HttpClient.newHttpClient();
-        request = HttpRequest.newBuilder()
-                .uri(URI.create(apiip + "/api/v1/helpop/add?username=" + sender.getName() + "&message=" + String.join("+", args) + "&class=" + getClassOfPlayer(player)))
-                .build();
+        sender.sendMessage("Bans är inte implementerade för tillfället");
 
-        try {
-            response = client.send(request,
-                    HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        responseText = response.body();
-        if(response.statusCode() != 200) {
-            player.sendMessage(ChatColor.RED + String.valueOf(response.statusCode()) + " Error: " + responseText);
-        } else {
-            player.sendMessage(ChatColor.YELLOW + "Skickat meddelande till Staff");
-            for(Player _player : Bukkit.getServer().getOnlinePlayers()) {
-                if(getPermissionOfPlayer(_player) == 1) {
-                    player.sendMessage(ChatColor.YELLOW + "[StaffHjälp] " + ChatColor.WHITE + "<" + player.getName() + "> " + String.join(" ", args));
-                }
-            }
-        }
         return true;
+
+//        HttpRequest request;
+//        HttpResponse<String> response;
+//        String responseText;
+//        HttpClient client = HttpClient.newHttpClient();
+//        request = HttpRequest.newBuilder()
+//                .uri(URI.create(apiip + "/api/v1/helpop/add?username=" + sender.getName() + "&message=" + String.join("+", args) + "&class=" + getClassOfPlayer(player)))
+//                .build();
+//
+//        try {
+//            response = client.send(request,
+//                    HttpResponse.BodyHandlers.ofString());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        responseText = response.body();
+//        if(response.statusCode() != 200) {
+//            player.sendMessage(ChatColor.RED + String.valueOf(response.statusCode()) + " Error: " + responseText);
+//        } else {
+//            player.sendMessage(ChatColor.YELLOW + "Skickat meddelande till Staff");
+//            for(Player _player : Bukkit.getServer().getOnlinePlayers()) {
+//                if(getPermissionOfPlayer(_player) == 1) {
+//                    player.sendMessage(ChatColor.YELLOW + "[StaffHjälp] " + ChatColor.WHITE + "<" + player.getName() + "> " + String.join(" ", args));
+//                }
+//            }
+//        }
+//        return true;
     }
 }
