@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SSISAuth.iml" filepath="$PROJECT_DIR$/SSISAuth.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ssisauth.iml" filepath="$PROJECT_DIR$/ssisauth.iml" />
     </modules>
   </component>
 </project>
