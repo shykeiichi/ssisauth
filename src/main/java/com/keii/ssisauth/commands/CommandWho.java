@@ -34,7 +34,7 @@ public class CommandWho implements CommandExecutor {
 
             responseText = response.body();
         } catch(Exception error) {
-            sender.sendMessage(Component.text().content("§cOj! Ser ut som att APIet har lite problem. Kontakta 22widi@stockholmscience.se").build());
+            sender.sendMessage(Component.text().content("§cOj! Ser ut som att APIet har lite problem. Kontakta 22widi@stockholmscience.se" + error.getMessage()).build());
             return true;
         }
 

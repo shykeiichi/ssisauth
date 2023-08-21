@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="SSISAuth:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/SSISAuth_jar</output-path>
-    <root id="archive" name="SSISAuth.jar">
-      <element id="module-output" name="SSISAuth" />
-    </root>
-  </artifact>
-</component>

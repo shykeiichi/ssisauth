@@ -9,8 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SSISAuth extends JavaPlugin {
-    //public static String apiip = "https://mc.ssis.nu";
-    public static String apiip = "http://192.168.147.230:8080";
+    public static String apiip = "https://mc.ssis.nu";
 
     @Override
     public void onEnable() {
@@ -19,7 +18,7 @@ public class SSISAuth extends JavaPlugin {
         this.getCommand("reloadusers").setExecutor(new CommandReloadUsers());
         this.getCommand("helpop").setExecutor(new CommandHelpop());
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
-        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "SSISAuth Enabled");
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "SSISAuth Enabled!");
         getServer().dispatchCommand(getServer().getConsoleSender(), "reloadusers");
     }
 

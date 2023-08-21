@@ -44,7 +44,7 @@ public class PlayerJoin implements Listener {
 
             responseText = response.body();
         } catch(Exception error) {
-            e.getPlayer().kick(Component.text().content("§cOj! Ser ut som att APIet har lite problem. Kontakta 22widi@stockholmscience.se").build());
+            e.getPlayer().kick(Component.text().content("§cOj! Ser ut som att APIet har lite problem. Kontakta 22widi@stockholmscience.se. " + error.getMessage()).build());
             return;
         }
 
