@@ -4,6 +4,7 @@ import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -72,6 +73,7 @@ public class PlayerJoin implements Listener {
             //e.getPlayer().playerListName(Component.text().content(ChatColor.WHITE + result[3] + result[4].charAt(0)).build());
 
             e.joinMessage(Component.text().content("§e" + result[2] + " " + result[3] + result[4].charAt(0) + " joined the game").build());
+            e.getPlayer().sendMessage(Component.text("Glöm inte att du kan använda /map för att claima mark.").color(NamedTextColor.YELLOW));
 
             if(playerClass.containsKey(result[3] + result[4].charAt(0)))
                 playerClass.remove(result[3] + result[4].charAt(0));
@@ -81,11 +83,12 @@ public class PlayerJoin implements Listener {
                 playerPermission.remove(result[3] + result[4].charAt(0));
             playerPermission.put(result[3] + result[4].charAt(0), Integer.parseInt(result[5]));
 
-            PlayerProfile oldProfile = e.getPlayer().getPlayerProfile();
-            Set<ProfileProperty> old = oldProfile.getProperties();
-            var profile = Bukkit.createProfileExact(e.getPlayer().getUniqueId(), result[3] + result[4].charAt(0));
-            profile.setProperties(old); // The players previous properties
-            e.getPlayer().setPlayerProfile(profile);
+            e.getPlayer().displayName(Component.text(result[3] + result[4].charAt(0)));
+//            PlayerProfile oldProfile = e.getPlayer().getPlayerProfile();
+//            Set<ProfileProperty> old = oldProfile.getProperties();
+//            var profile = Bukkit.createProfileExact(e.getPlayer().getUniqueId(), result[3] + result[4].charAt(0));
+//            profile.setProperties(old); // The players previous properties
+//            e.getPlayer().setPlayerProfile(profile);
         }
     }
 }
